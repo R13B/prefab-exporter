@@ -6,9 +6,9 @@
 # ##### END LICENSE BLOCK #####
 
 bl_info = {
-    "name": "BeamNG *.prefab TSStatic Exporter",
-    "author": "BeamNG / dmn",
-    "version": (0, 0, 3),
+    "name": "R13B*.prefab TSStatic Exporter",
+    "author": "R13B / Noe Araujo, BeamNG / dmn",
+    "version": (1, 0, 0),
     "blender": (2, 80, 0),
     "location": "File > Export",
     "description": "Export prefab files",
@@ -81,10 +81,23 @@ class ExportPrefab(bpy.types.Operator, ExportHelper):
         default="0"
     )
 
+    shape_exten: EnumProperty(
+        name="Shape Extension",
+        description="Escolha a extensao dos shapes",
+        items={
+            ("0", "DAE", ""),
+            ("1", "dts", ""),
+            ("2", "None", ""),
+        },
+        default="0"
+    )
+
     def draw(self, context):
         layout = self.layout
         sub = layout.row()
         sub.prop(self, "shape_name")
+        sub = layout.row()
+        sub.prop(self, "shape_exten")
         sub = layout.row()
         sub.prop(self, "collision_type")
         sub = layout.row()
@@ -108,7 +121,7 @@ addon_classes = [ExportPrefab]
 # Add to a menu
 def menu_func_export(self, context):
     self.layout.operator(ExportPrefab.bl_idname,
-                         text="BeamNG prefab (*.prefab)")
+                         text="R13B prefab (*.prefab)")
 
 
 def register():
